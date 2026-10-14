@@ -74,3 +74,189 @@ describe('Suíte de Testes Fraca para 50 Operações Aritméticas', () => {
   test('49. deve calcular o triplo de um número', () => { expect(triplo(10)).toBe(30); });
   test('50. deve calcular a metade de um número', () => { expect(metade(20)).toBe(10); });
 });
+
+describe('Testes adicionais para análise de mutação', () => {
+  // Bloco 1: operações básicas
+  test('deve rejeitar raiz quadrada de número negativo', () => {
+    expect(() => raizQuadrada(-1)).toThrow();
+  });
+
+  test('deve rejeitar fatorial de número negativo', () => {
+    expect(() => fatorial(-1)).toThrow();
+  });
+
+  test('deve calcular fatorial de zero e um', () => {
+    expect(fatorial(0)).toBe(1);
+    expect(fatorial(1)).toBe(1);
+  });
+
+  test('deve calcular resto com divisão exata', () => {
+    expect(restoDivisao(10, 5)).toBe(0);
+  });
+
+  test('deve retornar zero para média de array vazio', () => {
+    expect(mediaArray([])).toBe(0);
+  });
+
+  // Bloco 2: arrays e verificações
+  test('deve lançar erro para máximo e mínimo de array vazio', () => {
+    expect(() => maximoArray([])).toThrow();
+    expect(() => minimoArray([])).toThrow();
+  });
+
+  test('deve retornar false para paridade oposta', () => {
+    expect(isPar(7)).toBe(false);
+    expect(isImpar(8)).toBe(false);
+  });
+
+  test('deve calcular porcentagem com valor zero', () => {
+    expect(calcularPorcentagem(50, 0)).toBe(0);
+    expect(aumentarPorcentagem(0, 10)).toBe(0);
+    expect(diminuirPorcentagem(0, 10)).toBe(0);
+  });
+
+  test('deve calcular o valor absoluto de zero', () => {
+    expect(valorAbsoluto(0)).toBe(0);
+  });
+
+  // Bloco 3: funções trigonométricas e logarítmicas
+  test('deve calcular seno e cosseno em ângulos adicionais', () => {
+    expect(seno(Math.PI / 2)).toBeCloseTo(1);
+    expect(cosseno(Math.PI)).toBeCloseTo(-1);
+  });
+
+  test('deve calcular logaritmos de um', () => {
+    expect(logaritmoNatural(1)).toBe(0);
+    expect(logaritmoBase10(1)).toBe(0);
+  });
+
+  test('deve calcular hipotenusa com cateto zero', () => {
+    expect(hipotenusa(0, 5)).toBe(5);
+  });
+
+  // Bloco 4: teoria dos números e sequências
+  test('deve calcular MDC com um dos números igual a zero', () => {
+    expect(mdc(0, 5)).toBe(5);
+  });
+
+  test('deve calcular MMC quando um número é zero', () => {
+    expect(mmc(0, 5)).toBe(0);
+  });
+
+  test('deve identificar números primos e compostos', () => {
+    expect(isPrimo(2)).toBe(true);
+    expect(isPrimo(4)).toBe(false);
+    expect(isPrimo(1)).toBe(false);
+  });
+
+  test('deve calcular os primeiros termos de Fibonacci', () => {
+    expect(fibonacci(0)).toBe(0);
+    expect(fibonacci(1)).toBe(1);
+    expect(fibonacci(2)).toBe(1);
+  });
+
+  test('deve retornar o produto de array vazio', () => {
+    expect(produtoArray([])).toBe(1);
+  });
+
+  test('deve limitar valores abaixo e acima do intervalo', () => {
+    expect(clamp(-1, 0, 10)).toBe(0);
+    expect(clamp(11, 0, 10)).toBe(10);
+  });
+
+  test('deve retornar false quando não há divisibilidade exata', () => {
+    expect(isDivisivel(10, 3)).toBe(false);
+  });
+
+  test('deve rejeitar o inverso de zero', () => {
+    expect(() => inverso(0)).toThrow();
+  });
+
+  // Bloco 5: geometria, comparação e mediana
+  test('deve calcular áreas com raio e lados zero', () => {
+    expect(areaCirculo(0)).toBe(0);
+    expect(areaRetangulo(0, 5)).toBe(0);
+  });
+
+  test('deve calcular mediana de array par', () => {
+    expect(medianaArray([1, 2, 3, 4])).toBe(2.5);
+  });
+
+  test('deve rejeitar mediana de array vazio', () => {
+    expect(() => medianaArray([])).toThrow();
+  });
+
+  test('deve retornar false nas comparações de igualdade', () => {
+    expect(isMaiorQue(5, 5)).toBe(false);
+    expect(isMenorQue(5, 5)).toBe(false);
+    expect(isEqual(5, 6)).toBe(false);
+  });
+
+  test('deve calcular dobro, triplo e metade de zero', () => {
+    expect(dobro(0)).toBe(0);
+    expect(triplo(0)).toBe(0);
+    expect(metade(0)).toBe(0);
+  });
+});
+
+describe('Casos-limite adicionais', () => {
+  test('deve detectar alterações nos limites das comparações', () => {
+    expect(isMaiorQue(5, 5)).toBe(false);
+    expect(isMenorQue(5, 5)).toBe(false);
+    expect(isMaiorQue(6, 5)).toBe(true);
+    expect(isMenorQue(4, 5)).toBe(true);
+  });
+
+  test('deve testar os dois ramos do fatorial', () => {
+    expect(fatorial(0)).toBe(1);
+    expect(fatorial(1)).toBe(1);
+    expect(fatorial(3)).toBe(6);
+    expect(() => fatorial(-1)).toThrow();
+  });
+
+  test('deve testar os dois limites do clamp', () => {
+    expect(clamp(-1, 0, 10)).toBe(0);
+    expect(clamp(0, 0, 10)).toBe(0);
+    expect(clamp(10, 0, 10)).toBe(10);
+    expect(clamp(11, 0, 10)).toBe(10);
+  });
+
+  test('deve calcular a mediana de arrays pares e ímpares', () => {
+    expect(medianaArray([1, 2, 3, 4])).toBe(2.5);
+    expect(medianaArray([1, 2, 3, 4, 5])).toBe(3);
+    expect(medianaArray([5, 1, 3])).toBe(3);
+    expect(() => medianaArray([])).toThrow();
+  });
+
+  test('deve testar os limites da verificação de primalidade', () => {
+    expect(isPrimo(1)).toBe(false);
+    expect(isPrimo(2)).toBe(true);
+    expect(isPrimo(3)).toBe(true);
+    expect(isPrimo(4)).toBe(false);
+    expect(isPrimo(9)).toBe(false);
+  });
+
+  test('deve testar o MDC e o MMC com zero', () => {
+    expect(mdc(0, 5)).toBe(5);
+    expect(mmc(0, 5)).toBe(0);
+  });
+
+  test('deve detectar alterações no cálculo da porcentagem', () => {
+    expect(calcularPorcentagem(25, 200)).toBe(50);
+    expect(aumentarPorcentagem(200, 25)).toBe(250);
+    expect(diminuirPorcentagem(200, 25)).toBe(150);
+  });
+
+  test('deve detectar alterações no arredondamento', () => {
+    expect(arredondarParaBaixo(5.9)).toBe(5);
+    expect(arredondarParaCima(5.1)).toBe(6);
+    expect(arredondar(5.2)).toBe(5);
+    expect(arredondar(5.8)).toBe(6);
+  });
+
+  test('deve detectar alterações no cálculo do produto', () => {
+    expect(produtoArray([])).toBe(1);
+    expect(produtoArray([2, 3, 4])).toBe(24);
+    expect(produtoArray([2, 0, 4])).toBe(0);
+  });
+});
